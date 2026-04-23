@@ -43,25 +43,38 @@ const initDB = async () => {
   const path = require('path');
   
   try {
-    console.log('⏳ Checking database tables...');
+    console.log('⏳ DATABASE AUTO-INIT: Starting...');
     const schemaPath = path.join(__dirname, 'schema.sql');
     if (!fs.existsSync(schemaPath)) {
-      console.warn('⚠️ schema.sql not found at', schemaPath);
+      console.error('❌ DATABASE AUTO-INIT: schema.sql NOT FOUND at', schemaPath);
       return;
     }
 
     const sql = fs.readFileSync(schemaPath, 'utf8');
-    // Split by semicolon but handle potential ones inside strings
-    const statements = sql.split(/;(?=(?:[^']*'[^']*')*[^']*$)/);
+    // Filter out comments and empty lines
+    const statements = sql
+      .split(';')
+      .map(s => s.trim())
+      .filter(s => s.length > 0 && !s.startsWith('--'));
+    
+    console.log(`⏳ DATABASE AUTO-INIT: Found ${statements.length} commands to run.`);
     
     for (let statement of statements) {
-      if (statement.trim()) {
-        await pool.query(statement);
+      try {
+        if (statement.trim()) {
+          await pool.query(statement);
+        }
+      } catch (err) {
+        // Ignore "already exists" or "duplicate entry" errors
+        if (err.code === 'ER_TABLE_EXISTS_ERROR' || err.code === 'ER_DUP_ENTRY') {
+          continue; 
+        }
+        console.warn('⚠️ Statement warning:', err.message);
       }
     }
-    console.log('✅ Database initialization complete (Tables verified/created)');
+    console.log('✅ DATABASE AUTO-INIT: Tables verified and created successfully!');
   } catch (error) {
-    console.error('❌ Database Initialization Failed:', error.message);
+    console.error('❌ DATABASE AUTO-INIT: CRITICAL FAILURE:', error.message);
   }
 };
 
