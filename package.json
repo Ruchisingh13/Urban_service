@@ -22,5 +22,8 @@
     "express"
   ],
   "author": "Your Name",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mysql2": "^3.22.2"
+  }
 }

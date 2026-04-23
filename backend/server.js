@@ -24,6 +24,29 @@ app.get('/api/health', (req, res) => {
 });
 
 // ── API Routes ─────────────────────────────────────────────────────
+app.get('/api/setup-db', async (req, res) => {
+  try {
+    const pool = require('./config/db');
+    const fs = require('fs');
+    const path = require('path');
+    const sql = fs.readFileSync(path.join(__dirname, 'config', 'schema.sql'), 'utf8');
+    
+    // Split by semicolon but ignore ones inside strings (simplified for this schema)
+    const statements = sql.split(/;(?=(?:[^']*'[^']*')*[^']*$)/);
+    
+    for (let statement of statements) {
+      if (statement.trim()) {
+        await pool.query(statement);
+      }
+    }
+    
+    res.json({ success: true, message: '🎉 Database tables created and data seeded successfully!' });
+  } catch (error) {
+    console.error('Setup DB Error:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/bookings', bookingRoutes);
