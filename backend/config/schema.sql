@@ -2,8 +2,8 @@
 -- UrbanServe - Database Schema
 -- ============================================
 
-CREATE DATABASE IF NOT EXISTS urbanserve;
-USE urbanserve;
+-- CREATE DATABASE IF NOT EXISTS urbanserve;
+-- USE urbanserve;
 
 -- Users Table
 CREATE TABLE IF NOT EXISTS users (

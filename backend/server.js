@@ -48,7 +48,11 @@ app.use(errorHandler);
 
 // ── Start Server ───────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 UrbanServe Server running on http://localhost:${PORT}`);
-  console.log(`📋 Environment: ${process.env.NODE_ENV || 'development'}\n`);
+const HOST = '0.0.0.0'; // Required for Railway
+
+app.listen(PORT, HOST, () => {
+  console.log(`\n🚀 UrbanServe Server is LIVE!`);
+  console.log(`📡 URL: http://${HOST}:${PORT}`);
+  console.log(`📋 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Database: ${process.env.DB_HOST || 'mysql.railway.internal'}\n`);
 });
