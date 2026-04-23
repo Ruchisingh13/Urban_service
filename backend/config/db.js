@@ -1,5 +1,6 @@
 // config/db.js - MySQL Database Connection Pool
 const mysql = require('mysql2/promise');
+// Last Deploy Attempt: 2026-04-23T15:57:00Z
 require('dotenv').config();
 
 // Create a connection pool for better performance
@@ -17,13 +18,21 @@ const pool = mysql.createPool({
 
 // Test the connection
 const testConnection = async () => {
+  console.log(`📡 Attempting to connect to database at ${process.env.DB_HOST || process.env.MYSQLHOST || 'localhost'}...`);
   try {
     const conn = await pool.getConnection();
     console.log('✅ MySQL Database connected successfully');
     conn.release();
   } catch (error) {
-    console.error('❌ Database connection failed:', error.message);
-    process.exit(1);
+    console.error('❌ DATABASE CONNECTION FAILED!');
+    console.error('   Error Code:', error.code || 'N/A');
+    console.error('   Error Message:', error.message || 'No message provided');
+    console.error('   Target Host:', process.env.DB_HOST || process.env.MYSQLHOST || 'localhost');
+    console.error('   Target User:', process.env.DB_USER || process.env.MYSQLUSER || 'root');
+    // Don't exit immediately in production so we can see the logs
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
   }
 };
 
