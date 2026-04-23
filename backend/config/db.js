@@ -23,16 +23,45 @@ const testConnection = async () => {
     const conn = await pool.getConnection();
     console.log('✅ MySQL Database connected successfully');
     conn.release();
+    
+    // Auto-initialize tables
+    await initDB();
   } catch (error) {
     console.error('❌ DATABASE CONNECTION FAILED!');
     console.error('   Error Code:', error.code || 'N/A');
     console.error('   Error Message:', error.message || 'No message provided');
-    console.error('   Target Host:', process.env.DB_HOST || process.env.MYSQLHOST || 'localhost');
-    console.error('   Target User:', process.env.DB_USER || process.env.MYSQLUSER || 'root');
-    // Don't exit immediately in production so we can see the logs
+    
     if (process.env.NODE_ENV !== 'production') {
       process.exit(1);
     }
+  }
+};
+
+// Initialize Database Tables
+const initDB = async () => {
+  const fs = require('fs');
+  const path = require('path');
+  
+  try {
+    console.log('⏳ Checking database tables...');
+    const schemaPath = path.join(__dirname, 'schema.sql');
+    if (!fs.existsSync(schemaPath)) {
+      console.warn('⚠️ schema.sql not found at', schemaPath);
+      return;
+    }
+
+    const sql = fs.readFileSync(schemaPath, 'utf8');
+    // Split by semicolon but handle potential ones inside strings
+    const statements = sql.split(/;(?=(?:[^']*'[^']*')*[^']*$)/);
+    
+    for (let statement of statements) {
+      if (statement.trim()) {
+        await pool.query(statement);
+      }
+    }
+    console.log('✅ Database initialization complete (Tables verified/created)');
+  } catch (error) {
+    console.error('❌ Database Initialization Failed:', error.message);
   }
 };
 
