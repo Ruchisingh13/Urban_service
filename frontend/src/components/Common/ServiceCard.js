@@ -5,16 +5,16 @@ import './ServiceCard.css';
 
 // Category-aware fallback images (used when a service image_url fails to load)
 const CATEGORY_FALLBACKS = {
-  'AC & Appliance': 'https://images.unsplash.com/photo-1581094288338-2314dddb7ead?w=600',
-  'Cleaning':       'https://images.unsplash.com/photo-1581578731548-c64695ce6952?w=600',
-  'Plumbing':       'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600',
+  'AC & Appliance': 'https://images.unsplash.com/photo-1614633833026-07c0500d6881?w=600',
+  'Cleaning':       'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600',
+  'Plumbing':       'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=600',
   'Electrical':     'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600',
-  'Carpentry':      'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400',
-  'Painting':       'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400',
-  'Pest Control':   'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400',
-  'Beauty & Wellness': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400',
+  'Carpentry':      'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600',
+  'Painting':       'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600',
+  'Pest Control':   'https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?w=600',
+  'Beauty & Wellness': 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=600',
 };
-const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400';
+const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1581578731548-c64695ce6952?w=600';
 
 const ServiceCard = ({ service }) => {
   const stars = '★'.repeat(Math.round(service.rating)) + '☆'.repeat(5 - Math.round(service.rating));
