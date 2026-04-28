@@ -5,10 +5,10 @@ import './ServiceCard.css';
 
 // Category-aware fallback images (used when a service image_url fails to load)
 const CATEGORY_FALLBACKS = {
-  'AC & Appliance': 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400',
-  'Cleaning':       'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400',
-  'Plumbing':       'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
-  'Electrical':     'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400',
+  'AC & Appliance': 'https://images.unsplash.com/photo-1581094288338-2314dddb7ead?w=600',
+  'Cleaning':       'https://images.unsplash.com/photo-1581578731548-c64695ce6952?w=600',
+  'Plumbing':       'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600',
+  'Electrical':     'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600',
   'Carpentry':      'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400',
   'Painting':       'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400',
   'Pest Control':   'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400',

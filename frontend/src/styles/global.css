@@ -22,15 +22,17 @@
   --border: #E2E8F0;
   --border-focus: #1B4FFF;
 
-  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
-  --shadow-lg: 0 12px 40px rgba(27,79,255,0.12);
-  --shadow-card: 0 2px 16px rgba(0,0,0,0.07);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.06);
+  --shadow-lg: 0 20px 50px rgba(27,79,255,0.1);
+  --shadow-card: 0 4px 24px -1px rgba(0,0,0,0.06), 0 2px 8px -1px rgba(0,0,0,0.04);
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
 
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-full: 999px;
 
   --font-display: 'Clash Display', sans-serif;
@@ -126,9 +128,14 @@ h1, h2, h3, h4, h5 { font-family: var(--font-display); line-height: 1.2; }
   box-shadow: var(--shadow-card);
   border: 1px solid var(--border);
   overflow: hidden;
-  transition: all var(--transition);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
 }
-.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.card:hover { 
+  box-shadow: var(--shadow-lg); 
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--brand-primary);
+}
 
 /* ── Form Styles ───────────────────────────────────────────────── */
 .form-group { display: flex; flex-direction: column; gap: 6px; }
